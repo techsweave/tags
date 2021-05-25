@@ -9,8 +9,9 @@ export default {
                 method: 'delete',
                 path: 'tags/{id}',
                 cors: true,
-                authorizerId: {
-                    ref: 'ApiGatewayAuthorizer'
+                authorizer: {
+                    name: 'ApiGatewayAuthorizer',
+                    arn: '${self:custom.cognitoArn}'
                 }
             }
         }

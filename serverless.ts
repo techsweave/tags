@@ -31,7 +31,8 @@ const serverlessConfiguration: AWS = {
             STAGE: '${self:provider.stage}',
             STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}',
             COGNITO_ARN: '${self:custom.cognitoArn}',
-            TAGS_TABLE: '${self:custom.tagsTable}'
+            TAGS_TABLE: '${self:custom.tagsTable}',
+            USER_POOL_ID: '${self:custom.cognitoPoolID}'
         },
 
         iam: {
@@ -110,19 +111,6 @@ const serverlessConfiguration: AWS = {
                     }
                 },
 
-            },
-            ApiGatewayAuthorizer: {
-                Type: 'AWS::ApiGateway::Authorizer',
-                Properties: {
-                    AuthorizerResultTtlInSeconds: 300,
-                    IdentitySource: 'method.request.header.Authorization',
-                    Name: 'authorizer',
-                    RestApiId: 'eu-central-1_eciEUvwzp',
-                    Type: 'COGNITO_USER_POOLS',
-                    ProviderARNs: [
-                        'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp',
-                    ]
-                }
             }
         }
     },

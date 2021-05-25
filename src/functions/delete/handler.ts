@@ -5,7 +5,7 @@ import deleteTag from './function';
 import { ValidatedEventAPIGatewayProxyEvent, middyfy, Response } from 'utilities-techsweave';
 import { StatusCodes } from 'http-status-codes';
 
-const deleteHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+const handler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     let response: Response<Tag>;
     try {
         response = Response.fromData<Tag>(
@@ -18,4 +18,4 @@ const deleteHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) =>
     return response.toAPIGatewayProxyResult();
 };
 
-export const main = middyfy(deleteHandler);
+export const main = middyfy(handler);

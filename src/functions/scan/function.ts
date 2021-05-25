@@ -3,7 +3,7 @@ import Tag from '@dbModel/tables/tags';
 import { ScanOptions } from '@aws/dynamodb-data-mapper';
 
 
-const scan = async (filter: any): Promise<{
+const scanTag = async (filter: any): Promise<{
     items: Tag[],
     lastKey: Partial<Tag>
 }> => {
@@ -28,4 +28,4 @@ const scan = async (filter: any): Promise<{
     });
 };
 
-export default scan;
+export default scanTag;

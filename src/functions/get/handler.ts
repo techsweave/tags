@@ -1,15 +1,15 @@
 import 'source-map-support/register';
 
 import Tag from '@dbModel/tables/tags';
-import get from './function';
+import getTag from './function';
 import { ValidatedEventAPIGatewayProxyEvent, middyfy, Response } from 'utilities-techsweave';
 import { StatusCodes } from 'http-status-codes';
 
-const getHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+const handler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     let response: Response<Tag>;
     try {
         response = Response.fromData<Tag>(
-            await get(event.pathParameters?.id),
+            await getTag(event.pathParameters?.id),
             StatusCodes.OK);
     }
     catch (error) {
@@ -18,4 +18,4 @@ const getHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     return response.toAPIGatewayProxyResult();
 };
 
-export const main = middyfy(getHandler);
+export const main = middyfy(handler);

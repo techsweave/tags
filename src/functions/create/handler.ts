@@ -2,11 +2,11 @@ import 'source-map-support/register';
 
 import Tag from '@dbModel/tables/tags';
 import schema from './schema';
-import create from './function';
+import createTag from './function';
 import { ValidatedEventAPIGatewayProxyEvent, middyfy, Response, AuthenticatedUser } from 'utilities-techsweave';
 import { StatusCodes } from 'http-status-codes';
 
-const createHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
     let res: Response<Tag>;
 
     try {
@@ -24,7 +24,7 @@ const createHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         tag.name = event.body.name;
         tag.description = event.body?.description;
 
-        res = Response.fromData<Tag>(await create(tag), StatusCodes.CREATED);
+        res = Response.fromData<Tag>(await createTag(tag), StatusCodes.CREATED);
 
     } catch (error) {
         res = Response.fromError(error);
@@ -32,4 +32,4 @@ const createHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     return res.toAPIGatewayProxyResult();
 };
 
-export const main = middyfy(createHandler);
+export const main = middyfy(handler);

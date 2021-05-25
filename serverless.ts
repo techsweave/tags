@@ -1,10 +1,10 @@
 import type { AWS } from '@serverless/typescript';
 
 import {
-    scan,
-    get,
-    create,
-    update,
+    scanTag,
+    getTag,
+    createTag,
+    updateTag,
     deleteTag
 } from '@functions/index';
 
@@ -116,10 +116,10 @@ const serverlessConfiguration: AWS = {
     },
     // import the function via paths
     functions: {
-        scan,
-        get,
-        create,
-        update,
+        scanTag,
+        getTag,
+        createTag,
+        updateTag,
         deleteTag
     },
 };

@@ -7,8 +7,8 @@ export default {
     events: [
         {
             http: {
-                method: 'post',
-                path: 'tags',
+                method: 'put',
+                path: 'tags/{id}',
                 cors: true,
                 request: {
                     schemas: {

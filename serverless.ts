@@ -3,7 +3,8 @@ import type { AWS } from '@serverless/typescript';
 import {
     scan,
     get,
-    create
+    create,
+    update
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -116,7 +117,8 @@ const serverlessConfiguration: AWS = {
     functions: {
         scan,
         get,
-        create
+        create,
+        update
     },
 };
 

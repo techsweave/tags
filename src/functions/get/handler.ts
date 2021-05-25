@@ -6,6 +6,8 @@ import { ValidatedEventAPIGatewayProxyEvent, middyfy, Response } from 'utilities
 import { StatusCodes } from 'http-status-codes';
 
 const handler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+
+
     let response: Response<Tag>;
     try {
         response = Response.fromData<Tag>(

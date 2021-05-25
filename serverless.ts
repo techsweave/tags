@@ -95,7 +95,7 @@ const serverlessConfiguration: AWS = {
 
     resources: {
         Resources: {
-            productsTable: {
+            tagsTable: {
                 Type: 'AWS::DynamoDB::Table',
                 Properties: {
                     TableName: '${self:custom.tagsTable}',
@@ -125,9 +125,3 @@ const serverlessConfiguration: AWS = {
 };
 
 module.exports = serverlessConfiguration;
-
-
-//   USERPOOL:
-//     ID: 'eu-central-1_eciEUvwzp'
-// ARN: 'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp'
-

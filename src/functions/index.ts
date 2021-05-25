@@ -1,5 +1,5 @@
 export { default as scan } from '@functions/scan/'
 export { default as get } from '@functions/get/'
-export { default as update } from '@functions/update/'
-export { default as delete } from '@functions/delete/'
-export { default as create } from '@functions/create/'
+// export { default as update } from '@functions/update/'
+// export { default as delete } from '@functions/delete/'
+// export { default as create } from '@functions/create/'

@@ -1,24 +1,21 @@
 import 'source-map-support/register';
 
 import Tag from '@dbModel/tables/tags';
-import scan from './function';
-
+import get from './function';
 import { ValidatedEventAPIGatewayProxyEvent, middyfy, Response } from 'utilities-techsweave';
-import StatusCodes from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
-import schema from './schema';
-
-const scanHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-    let res: Response<Tag> = new Response<Tag>();
-
+const getHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+    let response: Response<Tag>;
     try {
-        const result = await scan(event.body);
-        res = Response.fromMultipleData(result.items, StatusCodes.OK, result.lastKey);
-
-    } catch (error) {
-        res = Response.fromError(error);
+        response = Response.fromData<Tag>(
+            await get(event.pathParameters?.id),
+            StatusCodes.OK);
     }
-    return res.toAPIGatewayProxyResult();
+    catch (error) {
+        response = Response.fromError<Tag>(error);
+    }
+    return response.toAPIGatewayProxyResult();
 };
 
-export const main = middyfy(scanHandler);
+export const main = middyfy(getHandler);

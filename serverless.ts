@@ -1,16 +1,8 @@
 import type { AWS } from '@serverless/typescript';
 
 import {
-    getProduct,
-    getCart,
-    createProduct,
-    deleteProduct,
-    createCheckout,
-    scanProduct,
-    updateProduct,
-    addProductToCart,
-    removeProductFromCart,
-    editCart
+    scan,
+    get
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -119,16 +111,8 @@ const serverlessConfiguration: AWS = {
     },
     // import the function via paths
     functions: {
-        getProduct,
-        getCart,
-        createProduct,
-        deleteProduct,
-        addProductToCart,
-        createCheckout,
-        scanProduct,
-        updateProduct,
-        editCart,
-        removeProductFromCart
+        scan,
+        get
     },
 };
 

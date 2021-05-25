@@ -14,7 +14,7 @@ import {
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
-    service: 'eml-be',
+    service: 'tags-service',
 
     frameworkVersion: '2',
 
@@ -57,8 +57,7 @@ const serverlessConfiguration: AWS = {
     custom: {
         region: '${opt:region, self:provider.region}',
         stage: '${opt:stage, self:provider.stage}',
-        productsTable: 'products-table',
-        cartsTable: 'carts-table',
+        tagsTable: 'TbTags',
         stripeSecretKey: 'sk_test_51Ij41SF20K2KHUILxXq9l5A2CbPS6VtYNmH4Ij0PPZyxatNDMTyovfiFjdYtOaQvbrDCokLPhorse1BxVPNXt1jW0032wODV69',
         cognitoPoolID: 'eu-central-1_eciEUvwzp',
         dynamodb: {
@@ -102,7 +101,7 @@ const serverlessConfiguration: AWS = {
             productsTable: {
                 Type: 'AWS::DynamoDB::Table',
                 Properties: {
-                    TableName: '${self:custom.productsTable}',
+                    TableName: '${self:custom.tagsTable}',
                     AttributeDefinitions: [
                         { AttributeName: 'id', AttributeType: 'S' }
                     ],
@@ -115,39 +114,8 @@ const serverlessConfiguration: AWS = {
                     }
                 },
 
-            },
-            cartsTable: {
-                Type: 'AWS::DynamoDB::Table',
-                Properties: {
-                    TableName: '${self:custom.cartsTable}',
-                    AttributeDefinitions: [
-                        { AttributeName: 'id', AttributeType: 'S' }
-                    ],
-                    KeySchema: [
-                        { AttributeName: 'id', KeyType: 'HASH' }
-                    ],
-                    ProvisionedThroughput: {
-                        ReadCapacityUnits: '5',
-                        WriteCapacityUnits: '5'
-                    }
-                }
-            },
-            //TODO
-            //An error occurred: ApiGatewayAuthorizer - Invalid API identifier specified 780844780884:eu-central-1_eciEUvwzp (Service: AmazonApiGateway; Status Code: 404; Error Code: NotFoundException; Request ID: 8f13cde5-8392-4ddc-889c-3da757643788; Proxy: null).
-            // ApiGatewayAuthorizer: {
-            //     Type: 'AWS::ApiGateway::Authorizer',
-            //     Properties: {
-            //         AuthorizerResultTtlInSeconds: 300,
-            //         IdentitySource: 'method.request.header.Authorization',
-            //         Name: 'Cognito',
-            //         RestApiId: 'eu-central-1_eciEUvwzp',
-            //         Type: 'COGNITO_USER_POOLS',
-            //         ProviderARNs: [
-            //             'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp',
-            //         ]
-            //     }
-            // }
-        },
+            }
+        }
     },
     // import the function via paths
     functions: {

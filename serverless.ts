@@ -2,7 +2,8 @@ import type { AWS } from '@serverless/typescript';
 
 import {
     scan,
-    get
+    get,
+    create
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -28,7 +29,8 @@ const serverlessConfiguration: AWS = {
             STAGE: '${self:provider.stage}',
             PRODUCTS_TABLE: '${self:custom.productsTable}',
             CARTS_TABLE: '${self:custom.cartsTable}',
-            STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}'
+            STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}',
+            COGNITO_ARN: '${self:custom.cognitoArn}',
         },
 
         iam: {
@@ -52,6 +54,7 @@ const serverlessConfiguration: AWS = {
         tagsTable: 'TbTags',
         stripeSecretKey: 'sk_test_51Ij41SF20K2KHUILxXq9l5A2CbPS6VtYNmH4Ij0PPZyxatNDMTyovfiFjdYtOaQvbrDCokLPhorse1BxVPNXt1jW0032wODV69',
         cognitoPoolID: 'eu-central-1_eciEUvwzp',
+        cognitoArn: 'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp',
         dynamodb: {
             stages: ['dev'],
             start: {
@@ -112,7 +115,8 @@ const serverlessConfiguration: AWS = {
     // import the function via paths
     functions: {
         scan,
-        get
+        get,
+        create
     },
 };
 

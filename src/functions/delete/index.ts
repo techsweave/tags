@@ -8,7 +8,10 @@ export default {
             http: {
                 method: 'delete',
                 path: 'tags/{id}',
-                cors: true
+                cors: true,
+                authorizerId: {
+                    ref: 'ApiGatewayAuthorizer'
+                }
             }
         }
     ]

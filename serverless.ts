@@ -29,10 +29,9 @@ const serverlessConfiguration: AWS = {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
             REGION: '${self:provider.region}',
             STAGE: '${self:provider.stage}',
-            PRODUCTS_TABLE: '${self:custom.productsTable}',
-            CARTS_TABLE: '${self:custom.cartsTable}',
             STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}',
             COGNITO_ARN: '${self:custom.cognitoArn}',
+            TAGS_TABLE: '${self:custom.tagsTable}'
         },
 
         iam: {
@@ -111,6 +110,19 @@ const serverlessConfiguration: AWS = {
                     }
                 },
 
+            },
+            ApiGatewayAuthorizer: {
+                Type: 'AWS::ApiGateway::Authorizer',
+                Properties: {
+                    AuthorizerResultTtlInSeconds: 300,
+                    IdentitySource: 'method.request.header.Authorization',
+                    Name: 'authorizer',
+                    RestApiId: 'eu-central-1_eciEUvwzp',
+                    Type: 'COGNITO_USER_POOLS',
+                    ProviderARNs: [
+                        'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp',
+                    ]
+                }
             }
         }
     },

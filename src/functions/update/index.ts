@@ -15,9 +15,8 @@ export default {
                         'application/json': schema
                     }
                 },
-                authorizer: {
-                    name: 'authorizer',
-                    arn: process.env.COGNITO_ARN
+                authorizerId: {
+                    ref: 'ApiGatewayAuthorizer'
                 }
             }
         }

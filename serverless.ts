@@ -93,27 +93,6 @@ const serverlessConfiguration: AWS = {
         individually: true,
     },
 
-    resources: {
-        Resources: {
-            tagsTable: {
-                Type: 'AWS::DynamoDB::Table',
-                Properties: {
-                    TableName: '${self:custom.tagsTable}',
-                    AttributeDefinitions: [
-                        { AttributeName: 'id', AttributeType: 'S' }
-                    ],
-                    KeySchema: [
-                        { AttributeName: 'id', KeyType: 'HASH' }
-                    ],
-                    ProvisionedThroughput: {
-                        ReadCapacityUnits: '5',
-                        WriteCapacityUnits: '5'
-                    }
-                },
-
-            }
-        }
-    },
     // import the function via paths
     functions: {
         scanTag,

@@ -4,7 +4,8 @@ import {
     scan,
     get,
     create,
-    update
+    update,
+    deleteTag
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -118,7 +119,8 @@ const serverlessConfiguration: AWS = {
         scan,
         get,
         create,
-        update
+        update,
+        deleteTag
     },
 };
 

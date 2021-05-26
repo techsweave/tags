@@ -1,20 +1,15 @@
 import type { AWS } from '@serverless/typescript';
 
 import {
-    getProduct,
-    getCart,
-    createProduct,
-    deleteProduct,
-    createCheckout,
-    scanProduct,
-    updateProduct,
-    addProductToCart,
-    removeProductFromCart,
-    editCart
+    scanTag,
+    getTag,
+    createTag,
+    updateTag,
+    deleteTag
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
-    service: 'eml-be',
+    service: 'tags-service',
 
     frameworkVersion: '2',
 
@@ -34,9 +29,10 @@ const serverlessConfiguration: AWS = {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
             REGION: '${self:provider.region}',
             STAGE: '${self:provider.stage}',
-            PRODUCTS_TABLE: '${self:custom.productsTable}',
-            CARTS_TABLE: '${self:custom.cartsTable}',
-            STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}'
+            STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}',
+            COGNITO_ARN: '${self:custom.cognitoArn}',
+            TAGS_TABLE: '${self:custom.tagsTable}',
+            USER_POOL_ID: '${self:custom.cognitoPoolID}'
         },
 
         iam: {
@@ -57,10 +53,10 @@ const serverlessConfiguration: AWS = {
     custom: {
         region: '${opt:region, self:provider.region}',
         stage: '${opt:stage, self:provider.stage}',
-        productsTable: 'products-table',
-        cartsTable: 'carts-table',
+        tagsTable: 'TbTags',
         stripeSecretKey: 'sk_test_51Ij41SF20K2KHUILxXq9l5A2CbPS6VtYNmH4Ij0PPZyxatNDMTyovfiFjdYtOaQvbrDCokLPhorse1BxVPNXt1jW0032wODV69',
         cognitoPoolID: 'eu-central-1_eciEUvwzp',
+        cognitoArn: 'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp',
         dynamodb: {
             stages: ['dev'],
             start: {
@@ -97,77 +93,14 @@ const serverlessConfiguration: AWS = {
         individually: true,
     },
 
-    resources: {
-        Resources: {
-            productsTable: {
-                Type: 'AWS::DynamoDB::Table',
-                Properties: {
-                    TableName: '${self:custom.productsTable}',
-                    AttributeDefinitions: [
-                        { AttributeName: 'id', AttributeType: 'S' }
-                    ],
-                    KeySchema: [
-                        { AttributeName: 'id', KeyType: 'HASH' }
-                    ],
-                    ProvisionedThroughput: {
-                        ReadCapacityUnits: '5',
-                        WriteCapacityUnits: '5'
-                    }
-                },
-
-            },
-            cartsTable: {
-                Type: 'AWS::DynamoDB::Table',
-                Properties: {
-                    TableName: '${self:custom.cartsTable}',
-                    AttributeDefinitions: [
-                        { AttributeName: 'id', AttributeType: 'S' }
-                    ],
-                    KeySchema: [
-                        { AttributeName: 'id', KeyType: 'HASH' }
-                    ],
-                    ProvisionedThroughput: {
-                        ReadCapacityUnits: '5',
-                        WriteCapacityUnits: '5'
-                    }
-                }
-            },
-            //TODO
-            //An error occurred: ApiGatewayAuthorizer - Invalid API identifier specified 780844780884:eu-central-1_eciEUvwzp (Service: AmazonApiGateway; Status Code: 404; Error Code: NotFoundException; Request ID: 8f13cde5-8392-4ddc-889c-3da757643788; Proxy: null).
-            // ApiGatewayAuthorizer: {
-            //     Type: 'AWS::ApiGateway::Authorizer',
-            //     Properties: {
-            //         AuthorizerResultTtlInSeconds: 300,
-            //         IdentitySource: 'method.request.header.Authorization',
-            //         Name: 'Cognito',
-            //         RestApiId: 'eu-central-1_eciEUvwzp',
-            //         Type: 'COGNITO_USER_POOLS',
-            //         ProviderARNs: [
-            //             'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp',
-            //         ]
-            //     }
-            // }
-        },
-    },
     // import the function via paths
     functions: {
-        getProduct,
-        getCart,
-        createProduct,
-        deleteProduct,
-        addProductToCart,
-        createCheckout,
-        scanProduct,
-        updateProduct,
-        editCart,
-        removeProductFromCart
+        scanTag,
+        getTag,
+        createTag,
+        updateTag,
+        deleteTag
     },
 };
 
 module.exports = serverlessConfiguration;
-
-
-//   USERPOOL:
-//     ID: 'eu-central-1_eciEUvwzp'
-// ARN: 'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp'
-

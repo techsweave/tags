@@ -19,6 +19,7 @@
         "serverless.ts"
     ],
     "exclude": [
+        "tests",
         "node_modules/**/*",
         ".serverless/**/*",
         ".webpack/**/*",

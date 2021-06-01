@@ -11,10 +11,11 @@ const handler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
 
         const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
         if (!(await user.isVendor(process.env.USER_POOL_ID))) {
-            throw {
+            const error: Error = {
                 name: 'userNotAllowed',
-                message: 'You must be a vendor to create a tag'
-            };
+                message: 'You must be a vendor to update a tag'
+            }
+            throw error;
         }
 
         response = Response.fromData<Tag>(

@@ -15,13 +15,13 @@ describe('function: getTag', async () => {
     })
 
     it('Should throw ItemNotFoundException, if the id doesn\'t exist', async () => {
-        let c = null;
+        let result = null;
         try {
-            c = await getTag('Not Exist At All');
+            result = await getTag('Not Exist At All');
         }
         catch (err) {
             expect(err.name).to.be.equal('ItemNotFoundException');
         }
-        expect(c).to.be.null;
+        expect(result).to.be.null;
     })
 })

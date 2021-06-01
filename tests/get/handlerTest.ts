@@ -44,6 +44,6 @@ describe('handler: getTag', async () => {
 
         const body = JSON.parse(response.body);
 
-        expect(body.error.name, 'body.name').to.be.equal('ItemNotFoundException');
+        expect(body.error.name, 'body.error.name').to.be.equal('ItemNotFoundException');
     })
 })

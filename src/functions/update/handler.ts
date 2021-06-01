@@ -14,7 +14,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
         const user: AuthenticatedUser = await AuthenticatedUser.fromToken(event.headers?.AccessToken);
         if (!(await user.isVendor(process.env.USER_POOL_ID))) {
             const error: Error = {
-                name: 'userNotAllowed',
+                name: 'UserNotAllowed',
                 message: 'You must be a vendor to update a tag'
             }
             throw error;

@@ -16,7 +16,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
             const error: Error = {
                 name: 'UserNotAllowed',
                 message: 'You must be a vendor to update a tag'
-            }
+            };
             throw error;
         }
 

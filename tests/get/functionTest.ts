@@ -6,12 +6,12 @@ describe('function: getTag', async () => {
 
     it('Should return a specific tag, if the id exists', async () => {
         const expectedResult: Models.Tables.ITag = {
-            id: '2a856f59-86c6-4beb-a2b0-c8e7227d204e',
-            name: 'Scelto dal ventiore',
-            description: 'La nostra prima scelta!',
+            id: '1b769d8e-af6e-407e-a51d-f0b592f5255c',
+            name: 'In sconto',
+            description: 'Prodotto in sconto',
         }
 
-        expect(await getTag('2a856f59-86c6-4beb-a2b0-c8e7227d204e')).to.be.deep.equal(expectedResult);
+        expect(await getTag('1b769d8e-af6e-407e-a51d-f0b592f5255c')).to.be.deep.equal(expectedResult);
     })
 
     it('Should throw ItemNotFoundException, if the id doesn\'t exist', async () => {

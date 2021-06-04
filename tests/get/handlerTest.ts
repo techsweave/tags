@@ -7,14 +7,14 @@ describe('handler: getTag', async () => {
     it('Should return a response with a specific tag, if the id exists', async () => {
 
         const expectedResult: Models.Tables.ITag = {
-            id: '2a856f59-86c6-4beb-a2b0-c8e7227d204e',
-            name: 'Scelto dal ventiore',
-            description: 'La nostra prima scelta!',
+            id: '1b769d8e-af6e-407e-a51d-f0b592f5255c',
+            name: 'In sconto',
+            description: 'Prodotto in sconto',
         }
 
         const event: IFakeEvent = {
             pathParameters: {
-                id: '2a856f59-86c6-4beb-a2b0-c8e7227d204e'
+                id: '1b769d8e-af6e-407e-a51d-f0b592f5255c'
             }
         }
 

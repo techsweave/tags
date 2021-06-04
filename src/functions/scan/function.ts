@@ -11,8 +11,10 @@ const scanTag = async (filter: any): Promise<{
     let lastKey: Partial<Tag>;
     const dbFilter: ScanOptions = {
         limit: filter.limit,
-        pageSize: filter.pageSize,
-        startKey: filter.startKey,
+        startKey: filter.startKey ? {
+            id: filter.startKey
+        } : undefined,
+        readConsistency: 'strong'
     };
 
     const paginator = dbContext.scan(Tag, dbFilter).pages();
@@ -21,6 +23,7 @@ const scanTag = async (filter: any): Promise<{
         items = items.concat(page);
         lastKey = paginator.lastEvaluatedKey;
     }
+
 
     return Promise.resolve({
         items: items,

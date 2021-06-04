@@ -13,7 +13,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
 
     try {
         const result = await scanTag(event.body);
-        res = Response.fromMultipleData(result.items, StatusCodes.OK, result.lastKey);
+        res = Response.fromMultipleData(result.items, StatusCodes.OK, result?.lastKey);
 
     } catch (error) {
         res = Response.fromError(error);

@@ -40,6 +40,19 @@
                 },
                 "port": 5858,
                 "console": "integratedTerminal"
+            },
+            {
+                "name": "Test",
+                "type": "node",
+                "request": "launch",
+                "cwd": "${workspaceRoot}",
+                "runtimeExecutable": "npm",
+                "runtimeArgs": [
+                    "run-script",
+                    "test"
+                ],
+                "port": 5858,
+                "console": "integratedTerminal"
             }
         ]
     }

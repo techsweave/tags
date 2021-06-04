@@ -87,6 +87,7 @@ const serverlessConfiguration: AWS = {
         'serverless-webpack',
         'serverless-offline',
         'serverless-dynamodb-local',
+        'serverless-export-env'
     ],
 
     package: {

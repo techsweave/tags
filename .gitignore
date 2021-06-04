@@ -4,3 +4,4 @@ yarn.lock
 .webpack
 .serverless
 lib
+.env

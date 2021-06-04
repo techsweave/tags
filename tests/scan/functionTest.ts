@@ -13,7 +13,7 @@ describe('function: scanTag', async () => {
         let result = await scanTag(body);
         expect(result.items).to.be.a('Array')
         expect(result.items.length).to.be.equal(2);
-        expect(result.items[0] instanceof Tag).to.be.true;
+        expect(result.items[0] instanceof Tag, 'Is a tag').to.be.true;
         expect(result.lastKey.id).to.be.a('string');
     })
 
@@ -27,7 +27,7 @@ describe('function: scanTag', async () => {
         let result = await scanTag(body);
         expect(result.items).to.be.a('Array')
         expect(result.items.length).to.be.greaterThanOrEqual(1);
-        expect(result.items[0] instanceof Tag).to.be.true;
+        expect(result.items[0] instanceof Tag, 'Is a Tag').to.be.true;
         expect(result.lastKey).to.not.exist;
     })
 })

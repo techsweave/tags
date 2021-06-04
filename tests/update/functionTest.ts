@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { v4 as uuidv4 } from 'uuid';
-import createTag from '../../src/functions/create/function'
-import updateTag from '../../src/functions/update/function'
-import deleteTag from '../../src/functions/delete/function'
-import Tag from '../../src/models/database/tables/tags'
+import createTag from '../../src/functions/create/function';
+import updateTag from '../../src/functions/update/function';
+import deleteTag from '../../src/functions/delete/function';
+import Tag from '../../src/models/database/tables/tags';
 
 describe('function: updateTag', async () => {
 
@@ -15,7 +15,7 @@ describe('function: updateTag', async () => {
         newTag.description = uuidv4();
 
         newTag = await createTag(newTag);
-    })
+    });
 
     it('Should return the updated tag, if the id exists', async () => {
 
@@ -28,7 +28,7 @@ describe('function: updateTag', async () => {
 
 
         expect(await updateTag(expectedResult)).to.be.deep.equal(expectedResult);
-    })
+    });
 
     it('Should throw ItemNotFoundException, if the id doesn\'t exist', async () => {
 
@@ -47,12 +47,12 @@ describe('function: updateTag', async () => {
         }
 
         expect(result).to.not.exist;
-    })
+    });
 
     afterEach(async () => {
         try {
             await deleteTag(newTag.id);
         }
-        catch (e) { }
-    })
-})
+        catch (e) { console.log(e); }
+    });
+});

@@ -1,10 +1,10 @@
 import { Models, TestUser, fakeContext, IFakeEvent } from 'utilities-techsweave';
 import { v4 as uuidv4 } from 'uuid';
 import { expect } from 'chai';
-import { main as createTagHandler } from '../../src/functions/create/handler'
-import deleteTag from '../../src/functions/delete/function'
+import { main as createTagHandler } from '../../src/functions/create/handler';
+import deleteTag from '../../src/functions/delete/function';
 import { StatusCodes } from 'http-status-codes';
-import * as AWS from 'aws-sdk'
+import * as AWS from 'aws-sdk';
 
 
 describe('handler: createTag', async () => {
@@ -17,11 +17,11 @@ describe('handler: createTag', async () => {
 
         AWS.config.update({
             region: process.env.REGION
-        })
+        });
 
-        vendor = await TestUser.fromRole(true, process.env.USER_POOL_Id);
-        customer = await TestUser.fromRole(false, process.env.USER_POOL_Id);
-    })
+        vendor = await TestUser.fromRole(true, process.env.USER_POOL_ID);
+        customer = await TestUser.fromRole(false, process.env.USER_POOL_ID);
+    });
 
 
     it('Should return the created tag, if user is a vendor', async () => {
@@ -30,7 +30,7 @@ describe('handler: createTag', async () => {
             id: '',
             name: uuidv4(),
             description: uuidv4(),
-        }
+        };
 
         const fakeEvent: IFakeEvent = {
             headers: {
@@ -40,7 +40,7 @@ describe('handler: createTag', async () => {
                 name: expectedResult.name,
                 description: expectedResult.description
             }
-        }
+        };
 
         const response = await createTagHandler(fakeEvent, fakeContext);
 
@@ -54,7 +54,7 @@ describe('handler: createTag', async () => {
         expectedResult.id = id = body.data.id;
         expect(body.data, 'body.data').to.be.deep.equal(expectedResult);
 
-    })
+    });
 
     it('Should return a response with error UserNotAllowed, if the is not a vendor', async () => {
         const fakeEvent: IFakeEvent = {
@@ -65,9 +65,9 @@ describe('handler: createTag', async () => {
                 name: uuidv4(),
                 description: uuidv4()
             }
-        }
+        };
 
-        let response = await createTagHandler(fakeEvent, fakeContext);
+        const response = await createTagHandler(fakeEvent, fakeContext);
 
         expect(response).to.be.not.null;
         expect(response.statusCode, 'statusCode').to.be.equal(StatusCodes.FORBIDDEN);
@@ -75,11 +75,11 @@ describe('handler: createTag', async () => {
         const body = JSON.parse(response.body);
 
         expect(body.error.name, 'body.error.name').to.be.equal('UserNotAllowed');
-    })
+    });
 
 
     after(async () => {
         deleteTag(id);
-    })
+    });
 
-})
+});
